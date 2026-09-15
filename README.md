@@ -203,12 +203,12 @@ ai-pdf-summarizer/
 | Model ID | Speed | Best For |
 |----------|-------|----------|
 | `llama-3.3-70b-versatile` | 280 T/s | Best quality, recommended default |
-| `llama-3.1-8b-instant` | 560 T/s | Fast summarization, short docs |
 | `openai/gpt-oss-120b` | 500 T/s | Most powerful, complex documents |
 | `openai/gpt-oss-20b` | 1000 T/s | Fastest, cost-efficient |
 | `meta-llama/llama-4-scout-17b-16e-instruct` | 750 T/s | Latest Llama 4, great all-rounder |
 
-All models use Groq's free tier and support a 131K token context window.
+The app defaults to `openai/gpt-oss-20b`. Set `GROQ_MODEL` in Streamlit secrets to
+choose another model from the list.
 
 ---
 

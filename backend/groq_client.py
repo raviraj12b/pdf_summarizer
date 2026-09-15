@@ -11,6 +11,8 @@ import streamlit as st
 
 class GroqClient:
     """Client for Groq API communication (Cloud-based)"""
+
+    DEFAULT_MODEL = "openai/gpt-oss-20b"
     
     def __init__(self, api_key=None):
         """
@@ -35,13 +37,23 @@ class GroqClient:
             )
         
         self.client = Groq(api_key=api_key)
+        self.model = self._get_model()
         self.available_models = [
+            self.model,
             "llama-3.3-70b-versatile",                   # Best all-rounder for summarization
-            "llama-3.1-8b-instant",                      # Fast & lightweight
             "openai/gpt-oss-120b",                       # Most powerful, 120B params
             "openai/gpt-oss-20b",                        # Fast, very cost-efficient
             "meta-llama/llama-4-scout-17b-16e-instruct", # Llama 4, latest Meta model
         ]
+        self.available_models = list(dict.fromkeys(self.available_models))
+
+    @classmethod
+    def _get_model(cls):
+        """Read the configured model, falling back to a currently supported model."""
+        try:
+            return st.secrets["GROQ_MODEL"]
+        except KeyError:
+            return os.getenv("GROQ_MODEL", cls.DEFAULT_MODEL)
     
     def check_connection(self):
         """
@@ -52,7 +64,7 @@ class GroqClient:
         """
         try:
             response = self.client.chat.completions.create(
-                model="llama-3.1-8b-instant",
+                model=self.model,
                 messages=[{"role": "user", "content": "test"}],
                 max_tokens=5
             )

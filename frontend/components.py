@@ -106,7 +106,6 @@ def render_sidebar(GroqClient):
         with st.expander("About models"):
             st.markdown("""
 **llama-3.3-70b-versatile** — Best for summarization, great balance of speed & quality  
-**llama-3.1-8b-instant** — Fastest, ideal for quick summaries  
 **openai/gpt-oss-120b** — Most powerful, 120B parameters  
 **openai/gpt-oss-20b** — Very fast, cost-efficient  
 **meta-llama/llama-4-scout-17b-16e-instruct** — Latest Llama 4 from Meta  
